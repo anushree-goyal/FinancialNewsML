@@ -1,0 +1,19 @@
+# Virtual environment
+.venv/
+
+# IDE files
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local learning notes
+learning_notes/

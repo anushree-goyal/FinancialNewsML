@@ -1,0 +1,6 @@
+datasets==3.6.0
+huggingface-hub>=0.24,<1.0
+pandas
+matplotlib
+ipykernel
+scikit-learn
