@@ -1,12 +1,42 @@
 # FinancialNewsML
 
-FinancialNewsML is an end-to-end machine-learning project exploring whether
-information extracted from financial news can help characterize and eventually
-predict market reactions.
+This project started with a simple idea: financial news contains information
+about companies, but turning that language into something a model can use is
+not straightforward. I am building the project in stages, beginning with a
+classical NLP baseline and eventually connecting information extracted from
+news with subsequent market behavior.
 
-Phase 1 delivers a reproducible three-class financial sentiment classifier. It
-uses a custom TF-IDF implementation and class-balanced Logistic Regression to
-classify sentences as negative, neutral, or positive.
+## Aim
+
+The aim is to build an end-to-end workflow for extracting useful signals from
+financial news. This includes understanding the data, representing financial
+language numerically, training and evaluating models, and being careful about
+issues such as class imbalance and data leakage.
+
+## Research question
+
+Can machine-learning models extract useful information from financial news
+about sentiment, event type, and subsequent market reactions?
+
+## Phase 1: classical sentiment baseline
+
+The first phase focuses only on sentiment classification. Given a financial
+sentence, the model predicts whether it is negative, neutral, or positive.
+
+The goal of this phase is to establish a transparent baseline before moving to
+more advanced language models or market data. By the end of Phase 1, the
+project should have:
+
+- a documented and reproducible dataset-preparation process;
+- a custom implementation of TF-IDF;
+- a classical sentiment classifier;
+- evaluation that accounts for the imbalanced sentiment classes;
+- error analysis and interpretable model features; and
+- reusable training and prediction code with automated tests.
+
+For the dataset, I use the 75%-agreement subset of Financial PhraseBank. It
+retains more examples than the all-agreement subset while still requiring a
+clear majority of annotators to agree on each label.
 
 ## Results
 
