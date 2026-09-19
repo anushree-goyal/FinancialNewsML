@@ -1,0 +1,6 @@
+-r requirements.txt
+
+# Transformer sentiment modeling
+torch>=2.5
+transformers>=4.57,<5
+accelerate>=1,<2
