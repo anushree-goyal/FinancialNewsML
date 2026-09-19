@@ -165,4 +165,24 @@ PYTHONPATH=src pytest -q
 - **Phase 2:** transformer-based NLP and financial event extraction.
 - **Phase 3:** timestamped news and market-data integration.
 - **Phase 4:** market-reaction modeling with time-based validation.
-- **Phase 5 — optional:** API or interactive application.
+- **Phase 5 ** API or interactive application.
+
+
+## Extensions
+
+While working on this project and reading more about TF-IDF, I became
+interested in some of its limitations. In a future project, I would like to
+experiment with extending the basic idea to account for things that TF-IDF
+normally misses:
+
+1. **Meaning from context:** consider the words surrounding a term instead of
+   treating it in isolation.
+2. **Synonyms:** identify words that can have similar meanings in a particular
+   sentence, rather than treating them as completely separate features.
+3. **Word order and grammar:** preserve some information about the order and
+   relationship between words, including which words act as the subject or
+   object of a statement.
+
+This would be a separate research direction rather than part of the current
+baseline, but it came directly from seeing where the simpler approach succeeds
+and where it loses information.
