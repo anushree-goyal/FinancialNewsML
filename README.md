@@ -1,10 +1,9 @@
 # FinancialNewsML
 
-This project started with a simple idea: financial news contains information
-about companies, but turning that language into something a model can use is
-not straightforward. I am building the project in stages, beginning with a
-classical NLP baseline and eventually connecting information extracted from
-news with subsequent market behavior.
+The goal of this project is to build models that, given financial news containing information about companies, can use it to predict subsequent market behavior.
+
+I will be working in phases, beginning with a classical NLP baseline using TF-IDF vectorization, against which subsequent models will be compared and evaluated.
+
 
 ## Aim
 
@@ -23,9 +22,7 @@ about sentiment, event type, and subsequent market reactions?
 The first phase focuses only on sentiment classification. Given a financial
 sentence, the model predicts whether it is negative, neutral, or positive.
 
-The goal of this phase is to establish a transparent baseline before moving to
-more advanced language models or market data. By the end of Phase 1, the
-project should have:
+Phase 1 includes:
 
 - a documented and reproducible dataset-preparation process;
 - a custom implementation of TF-IDF;
@@ -34,9 +31,8 @@ project should have:
 - error analysis and interpretable model features; and
 - reusable training and prediction code with automated tests.
 
-For the dataset, I use the 75%-agreement subset of Financial PhraseBank. It
-retains more examples than the all-agreement subset while still requiring a
-clear majority of annotators to agree on each label.
+For the dataset, I use the 75%-agreement subset of Financial PhraseBank from HuggingFace. It
+retains more examples than the all-agreement (allagree) subset while still requiring a clear majority of annotators to agree on each label.
 
 ## Results
 
@@ -86,7 +82,8 @@ idf(term) = log((1 + number of documents) /
 FinancialNewsML/
 ├── notebooks/
 │   ├── 01_data_exploration.ipynb
-│   └── 02_baseline_model.ipynb
+│   ├── 02_baseline_model.ipynb
+│   └── 03_finbert_sentiment.ipynb
 ├── src/financial_news_ml/
 │   ├── features.py
 │   ├── model.py
@@ -95,6 +92,7 @@ FinancialNewsML/
 ├── tests/
 ├── models/                 # generated artifacts are ignored by Git
 ├── requirements.txt
+├── requirements-phase2.txt
 └── README.md
 ```
 
@@ -106,6 +104,12 @@ Create and activate a virtual environment, then install the dependencies:
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
+```
+
+Phase 2 has additional transformer dependencies:
+
+```bash
+python -m pip install -r requirements-phase2.txt
 ```
 
 ## Train the model
@@ -148,41 +152,32 @@ PYTHONPATH=src pytest -q
   duplicate handling, and the stratified split.
 - `02_baseline_model.ipynb` implements custom TF-IDF, trains the classifiers,
   performs leakage-safe cross-validation, and evaluates predictions.
+- `03_finbert_sentiment.ipynb` prepares the matching data split and tokenizer
+  for the Phase 2 finance-pretrained transformer experiment.
 
-## Limitations
+## Limitations of Phase 1 and their possible extensions
 
 - Financial PhraseBank contains isolated sentences rather than complete news
   articles.
-- The dataset is relatively small and has a neutral-class majority.
+- The dataset is relatively small and has a neutral-class majority (meaning a
+  model that always predicts "neutral" still has a reasonable accuracy).
 - The tokenizer uses lowercase alphanumeric unigrams and does not represent
   word order, negation scope, or broader context.
-- Sentiment is not equivalent to a tradable market signal.
-- The model has not been evaluated on newer news or other financial domains.
 
-## Roadmap
+Some of TF-IDF's limitations include:
 
-- **Phase 1 — complete:** classical financial sentiment baseline.
-- **Phase 2:** transformer-based NLP and financial event extraction.
-- **Phase 3:** timestamped news and market-data integration.
-- **Phase 4:** market-reaction modeling with time-based validation.
-- **Phase 5 ** API or interactive application.
-
-
-## Extensions
-
-While working on this project and reading more about TF-IDF, I became
-interested in some of its limitations. In a future project, I would like to
-experiment with extending the basic idea to account for things that TF-IDF
-normally misses:
-
-1. **Meaning from context:** consider the words surrounding a term instead of
-   treating it in isolation.
+1. **Meaning from context missing:** TF-IDF treats a term in isolation. Phase 2
+   starts to address this by using a transformer that handles context.
 2. **Synonyms:** identify words that can have similar meanings in a particular
    sentence, rather than treating them as completely separate features.
 3. **Word order and grammar:** preserve some information about the order and
    relationship between words, including which words act as the subject or
    object of a statement.
 
-This would be a separate research direction rather than part of the current
-baseline, but it came directly from seeing where the simpler approach succeeds
-and where it loses information.
+## Roadmap
+
+- **Phase 1 — complete:** classical financial sentiment baseline.
+- **Phase 2 — in progress:** transformer-based NLP and financial event extraction.
+- **Phase 3:** timestamped news and market-data integration.
+- **Phase 4:** market-reaction modeling with time-based validation.
+- **Phase 5:** API or interactive application.
